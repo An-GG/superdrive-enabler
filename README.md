@@ -1,6 +1,19 @@
 superdrive-enabler
 ==================
 
+```
+make all
+```
+you should have **dist/superdrive-enabler**
+then
+
+```
+sudo make install
+```
+install udev trigger and symlink binary
+
+
+---- old ---
 Hack for Apple's SuperDrive to work with other devices than OSX and MBA.
 
 To unlock SuperDrive, compile superdriveEnabler.c
