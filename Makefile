@@ -42,11 +42,11 @@ endif
 OBJS := $(patsubst %.$(C),%.$(OBJ),$(wildcard $(SOURCE_PATH)*.$(C)))
 
 %.$(OBJ):%.$(C)
-	@echo Compiling $(basename $<)...
+	@echo >  Compiling $(basename $<)...
 	$(CCMD) -c $(CPPFLAGS) $(CXXFLAGS) $< $(OBJFLAG)$@
 
 all: $(OBJS)
-	@echo Linking $(OBJS)...
+	@echo >  Linking $(OBJS)...
 	$(CCMD) $(LDFLAGS) $^ $(LIBS) $(EXEFLAG) $(EXE)
 
 clean:
@@ -59,18 +59,18 @@ UDEV_RULE = /etc/udev/rules.d/99-superdrive.rules
 LOCAL_BIN = /usr/local/bin/superdrive-enabler
 
 install: 
-	@echo Linking bin to ~/.local/bin
+	@echo >  Linking bin to ~/.local/bin
 	$(eval F := $(LOCAL_BIN))
 	if [ -L $(F) ]; then echo "\n >>>>  this symlink already exists\n"; else ln -s $(CURDIR)/dist/superdrive-enabler $(F); fi
-	@echo Copying udev rule, to /etc/udev/rules.d
+	@echo >  Copying udev rule, to /etc/udev/rules.d
 	$(eval F := $(UDEV_RULE))
 	if [ -L $(F) ]; then echo "\n >>>>  this symlink already exists\n"; else cp $(CURDIR)/99-superdrive.rules $(F); fi
 
 uninstall: 
-	@echo Deleting udev rule...
+	@echo >  Deleting udev rule...
 	$(eval F := $(UDEV_RULE))
 	if [ -L $(F) ]; then rm $(F); else echo "\n >>>>  no symlink at $(F)\n"; fi
-	@echo Unlinking bin from ~/.local/bin
+	@echo >  Unlinking bin from ~/.local/bin
 	$(eval F := $(LOCAL_BIN)) 
 	if [ -L $(F) ]; then rm $(F); else echo "\n >>>>  no symlink at $(F)\n"; fi
 
