@@ -1,0 +1,13 @@
+[
+ {
+  "directory": "/home/an/External/superdrive-enabler",
+  "arguments": [
+   "clang++-15",
+   "-c",
+   "-O2",
+   "src/superdriveEnabler.c",
+   "-osrc/superdriveEnabler.obj"
+  ],
+  "file": "src/superdriveEnabler.c"
+ }
+]

@@ -1,4 +1,4 @@
-COMPILER=G++
+COMPILER=clang++-15
 
 # todo: object files into output path, processing c / c++ files in the same time (?), nested directories for source files (?)
 C = c
@@ -27,16 +27,16 @@ ifeq ($(COMPILER), G++)
   DEP = dep
 else
   OBJ = obj
-  COPT = /O2
-  CCMD = cl
-  OBJFLAG = /Fo
-  EXEFLAG = /Fe
+  COPT = -O2
+  CCMD = clang++-15
+  OBJFLAG = -o
+  EXEFLAG = -e
 # INCLUDES = /I..\\.includes
   INCLUDES =
 # LIBS = ..\\.libs\\libgc.lib
   LIBS =
-  CPPFLAGS = $(COPT) /DEBUG $(INCLUDES)
-  LDFLAGS = /DEBUG
+  CPPFLAGS = $(COPT) $(INCLUDES)
+  LDFLAGS =
 endif
 
 OBJS := $(patsubst %.$(C),%.$(OBJ),$(wildcard $(SOURCE_PATH)*.$(C)))
@@ -46,6 +46,11 @@ OBJS := $(patsubst %.$(C),%.$(OBJ),$(wildcard $(SOURCE_PATH)*.$(C)))
 	$(CCMD) -c $(CPPFLAGS) $(CXXFLAGS) $< $(OBJFLAG)$@
 
 all: $(OBJS)
+	@echo $(LDFLAGS)
+	@echo $(LIBS)
+	@echo $(CPPFLAGS)
+	@echo $(CXXFLAGS)
+	@echo $(OBJFLAG)
 	@echo Linking...
 	$(CCMD) $(LDFLAGS) $^ $(LIBS) $(EXEFLAG) $(EXE)
 
