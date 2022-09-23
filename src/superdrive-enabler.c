@@ -7,7 +7,7 @@
 #include <unistd.h>
 
 
-void superdriveEnabler(const char *device)
+void superdriveEnabler(const char *device, int argc)
 {
     int fd;
     sg_io_hdr_t IO_hdr;
@@ -15,9 +15,15 @@ void superdriveEnabler(const char *device)
     unsigned char sbuf[32];
     unsigned char dxfp[32];
 
+
+    if (argc < 2 || strlen(device) < 5) {
+        printf("\nWarning: weird device path. ");
+        printf("Expecting it to be like \"/dev/sr0\" or something\n");
+    }
+
     fd = open(device, O_RDWR|O_NONBLOCK);
     if (fd < 0) {
-        fprintf(stderr, "Error opening MBA SuperDrive \"%s\".\n", device);
+        fprintf(stderr, "\nError opening MBA SuperDrive \"%s\".\n", device);
         return;
     }
     else {
@@ -43,6 +49,7 @@ void superdriveEnabler(const char *device)
 
 int main(int argc, const char* argv[])
 {
-    superdriveEnabler(argv[1]);
+    
+    superdriveEnabler(argv[1], argc);
     return 0;
 }
